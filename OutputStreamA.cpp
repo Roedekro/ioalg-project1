@@ -27,7 +27,7 @@ int OutputStreamA::create(char* s) {
 }
 
 int OutputStreamA::write(int* number) {
-    return ::write(filedesc, number, 4);
+    return ::write(filedesc, number, sizeof(int));
 }
 
 void OutputStreamA::close() {

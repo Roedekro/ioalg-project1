@@ -28,16 +28,16 @@ int InputStreamA::open(char* s) {
 
 int InputStreamA::readNext() {
 	int ret;
-	::read(filedesc, &ret , 4);
-	return ret;
+	int bytesRead = ::read(filedesc, &ret , sizeof(int));
+	return bytesRead > 0 ? ret : bytesRead;
 }
 
 bool InputStreamA::endOfStream() {
 	bool b = false;
 	int val;
-	::read(filedesc, &val , 4);
-	if (val == 0) b = true;
-	lseek(filedesc, -4, SEEK_CUR );
+	int bytesRead = ::read(filedesc, &val, sizeof(int));
+	if (bytesRead == 0) b = true;
+	lseek(filedesc, -bytesRead, SEEK_CUR);
 	return b;
 }
 
