@@ -1,12 +1,12 @@
 #include <iostream>
-#include "InputStreamA.h"
-#include "OutputStreamA.h"
+#include "InputStreamB.h"
+#include "OutputStreamB.h"
 
 
 int main() {
     char file[] = "testfile";
 
-    OutputStreamA * os = new OutputStreamA;
+    OutputStreamB * os = new OutputStreamB;
     os->create(file);
     int number = 42;
     os->write(&number);
@@ -14,7 +14,7 @@ int main() {
     os->write(&number2);
     os->close();
 
-    InputStreamA * is = new InputStreamA;
+    InputStreamB * is = new InputStreamB;
     is->open(file);
 
     //int test = is->readNext();
@@ -26,7 +26,7 @@ int main() {
     cout << is->readNext();
     cout << is->endOfStream();
     cout << is->readNext();
-    //cout << is->endOfStream();
+    cout << is->endOfStream();
 
     return 0;
 }

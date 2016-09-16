@@ -12,8 +12,6 @@ public:
     int filedesc;
     OutputStreamA();
 
-    OutputStreamA(int filedesc);
-
     virtual ~OutputStreamA();
     int create(char* s);
     int write(int* number);
