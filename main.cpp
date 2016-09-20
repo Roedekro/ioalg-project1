@@ -1,6 +1,8 @@
 #include <iostream>
 #include "InputStreamB.h"
 #include "OutputStreamB.h"
+#include <stdio.h>
+#include <queue>
 
 
 int main() {
