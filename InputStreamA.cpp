@@ -21,9 +21,8 @@ InputStreamA::~InputStreamA() {
 	// TODO Auto-generated destructor stub
 }
 
-int InputStreamA::open(char* s) {
+void InputStreamA::open(char* s) {
 	filedesc = ::open(s, O_RDONLY);
-	return filedesc;
 }
 
 int InputStreamA::readNext() {

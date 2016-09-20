@@ -3,12 +3,12 @@
 //
 
 #include <stdio.h>
-#include "OutputStreamInterface.h"
+#include "OutputStream.h"
 
 #ifndef IOALG_PROJECT1_OUTPUTSTREAMD_H
 #define IOALG_PROJECT1_OUTPUTSTREAMD_H
 
-class OutputStreamD {
+class OutputStreamD : public OutputStream {
 public:
     int index;
     int filedesc;

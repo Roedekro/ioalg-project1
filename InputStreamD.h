@@ -2,14 +2,18 @@
 // Created by soren on 9/20/16.
 //
 
+#include <stdio.h>
+#include "InputStream.h"
+
+
 #ifndef IOALG_PROJECT1_INPUTSTREAMD_H
 #define IOALG_PROJECT1_INPUTSTREAMD_H
 
-#include <stdio.h>
+
 
 using namespace std;
 
-class InputStreamD {
+class InputStreamD : public InputStream {
 public:
     FILE* file;
     int filedesc;
@@ -20,7 +24,7 @@ public:
     int portionIndex;
     InputStreamD(int portionSize);
     virtual ~InputStreamD();
-    int open(char* s);
+    void open(char* s);
     int readNext();
     bool endOfStream();
     void close();

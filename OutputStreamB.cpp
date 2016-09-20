@@ -25,8 +25,8 @@ void OutputStreamB::create(char* s) {
     file = fopen(s, "wb");
 }
 
-int OutputStreamB::write(int* number) {
-    return fwrite(number, sizeof(int), 1, file);
+void OutputStreamB::write(int* number) {
+    fwrite(number, sizeof(int), 1, file);
 }
 
 void OutputStreamB::close() {

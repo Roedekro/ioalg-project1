@@ -28,7 +28,7 @@ InputStreamD::~InputStreamD() {
     // TODO Auto-generated destructor stub
 }
 
-int InputStreamD::open(char* s) {
+void InputStreamD::open(char* s) {
     file = fopen(s, "r+");
     filedesc = fileno(file);
     fseek(file, 0, SEEK_END);
@@ -38,7 +38,6 @@ int InputStreamD::open(char* s) {
         perror("Error mmapping the file");
         exit(EXIT_FAILURE);
     }
-    return filedesc;
 }
 
 int InputStreamD::readNext() {

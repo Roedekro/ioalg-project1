@@ -5,18 +5,19 @@
  *      Author: Martin
  */
 
+#include "InputStream.h"
 
 #ifndef INPUTSTREAM_H_
 #define INPUTSTREAM_H_
 
 using namespace std;
 
-class InputStreamA {
+class InputStreamA : public InputStream {
 public:
 	int filedesc;
 	InputStreamA();
 	virtual ~InputStreamA();
-	int open(char* s);
+	void open(char* s);
 	int readNext();
 	bool endOfStream();
 	void close();

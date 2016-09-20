@@ -2,14 +2,17 @@
 // Created by soren on 9/16/16.
 //
 
+#include <stdio.h>
+#include "InputStream.h"
+
 #ifndef IOALG_PROJECT1_INPUTSTREAMB_H
 #define IOALG_PROJECT1_INPUTSTREAMB_H
 
-#include <stdio.h>
+
 
 using namespace std;
 
-class InputStreamB {
+class InputStreamB : public InputStream {
 public:
     FILE* file;
     InputStreamB();

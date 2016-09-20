@@ -2,12 +2,14 @@
 // Created by soren on 9/16/16.
 //
 
+#include "OutputStream.h"
+
 #ifndef IOALG_PROJECT1_OUTPUTSTREAMC_H
 #define IOALG_PROJECT1_OUTPUTSTREAMC_H
 
 using namespace std;
 
-class OutputStreamC {
+class OutputStreamC : OutputStream {
 public:
     int index;
     int * buffer;
@@ -15,7 +17,7 @@ public:
     OutputStreamC(int bufferSize);
 
     virtual ~OutputStreamC();
-    int create(char* s);
+    void create(char* s);
     void write(int* number);
     void close();
 };

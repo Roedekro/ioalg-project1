@@ -21,9 +21,8 @@ OutputStreamC::~OutputStreamC() {
     // TODO Auto-generated destructor stub
 }
 
-int OutputStreamC::create(char* s) {
+void OutputStreamC::create(char* s) {
     filedesc = ::open(s, O_CREAT|O_RDWR);
-    return filedesc;
 }
 
 void OutputStreamC::write(int* number) {
