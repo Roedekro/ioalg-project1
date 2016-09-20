@@ -48,5 +48,11 @@ int main() {
     cout << "readNext: " << is->readNext() << '\n';
     cout << "endOfStream: " << is->endOfStream() << '\n';
 
+    for(int i = 0; i < 10; i++) {
+        cout << is->readNext() << '\n';
+    }
+
+    is->close();
+
     return 0;
 }

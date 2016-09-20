@@ -45,7 +45,7 @@ int InputStreamD::readNext() {
     if (index == portionSize / sizeof(int)) {
         munmap(map, portionSize);
         portionIndex++;
-        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * portionSize);
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * getpagesize());
     }
 
     int elm = map[index];
