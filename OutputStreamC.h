@@ -10,7 +10,7 @@ using namespace std;
 class OutputStreamC {
 public:
     int index;
-    int buffer[];
+    int * buffer;
     int filedesc;
     OutputStreamC(int bufferSize);
 

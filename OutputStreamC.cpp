@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <initializer_list>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,16 +27,20 @@ int OutputStreamC::create(char* s) {
 }
 
 void OutputStreamC::write(int* number) {
-    index++;
-    if (index < sizeof(buffer) / sizeof(int)) {
-        buffer[index] = *number;
-    } else {
+    if (index >= sizeof(buffer) / sizeof(int)) {
         ::write(filedesc, buffer, sizeof(buffer));
         index = 0;
     }
+
+    buffer[index] = *number;
+    index++;
 }
 
 void OutputStreamC::close() {
+    if (index != 0) {
+        ::write(filedesc, buffer, index * sizeof(int));
+    }
+
     ::close(filedesc);
     delete(buffer);
     index = 0;

@@ -10,7 +10,7 @@ using namespace std;
 class InputStreamC {
 public:
     int filedesc;
-    int buffer[];
+    int * buffer;
     int index;
     InputStreamC(int bufferSize);
     virtual ~InputStreamC();

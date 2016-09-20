@@ -25,11 +25,18 @@ int InputStreamC::open(char* s) {
 }
 
 int InputStreamC::readNext() {
-    int bytesRead = ::read(filedesc, &buffer , sizeof(int) * sizeof(buffer));
-    return bytesRead > 0 ? ret : bytesRead;
+    if (index == 0) {
+        int bytesRead = ::read(filedesc, buffer, sizeof(buffer));
+        index = bytesRead / sizeof(int);
+    }
+
+    index--;
+    int elm = buffer[index];
+    return elm;
 }
 
 bool InputStreamC::endOfStream() {
+    if (index > 0) return false;
     bool b = false;
     int val;
     int bytesRead = ::read(filedesc, &val, sizeof(int));
