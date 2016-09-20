@@ -11,12 +11,11 @@ using namespace std;
 
 class OutputStreamD {
 public:
-    FILE* file;
     int index;
     int filedesc;
-    int fileSize;
+    int portionSize;
     int *map;
-    OutputStreamD();
+    OutputStreamD(int portionSize);
 
     virtual ~OutputStreamD();
     void create(char* s);
