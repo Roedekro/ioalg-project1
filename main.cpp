@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <sys/time.h>
-
+#include "OutputStreamInterface.h"
 
 void test1() {
     cout << "Page Size: " << getpagesize() << '\n';

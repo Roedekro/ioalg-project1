@@ -44,7 +44,7 @@ void OutputStreamD::create(char* s) {
     }
 }
 
-int OutputStreamD::write(int* number) {
+void OutputStreamD::write(int* number) {
     if(index == portionSize / sizeof(int)) {
         munmap(map, portionSize);
         portionIndex++;
@@ -59,7 +59,6 @@ int OutputStreamD::write(int* number) {
     }
     map[index] = *number;
     index++;
-    return 0;
 }
 
 void OutputStreamD::close() {

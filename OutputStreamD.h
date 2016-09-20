@@ -2,12 +2,11 @@
 // Created by soren on 9/20/16.
 //
 
+#include <stdio.h>
+#include "OutputStreamInterface.h"
+
 #ifndef IOALG_PROJECT1_OUTPUTSTREAMD_H
 #define IOALG_PROJECT1_OUTPUTSTREAMD_H
-
-#include <stdio.h>
-
-using namespace std;
 
 class OutputStreamD {
 public:
@@ -17,11 +16,11 @@ public:
     int portionIndex;
     int *map;
     OutputStreamD(int portionSize);
-
     virtual ~OutputStreamD();
     void create(char* s);
-    int write(int* number);
+    void write(int* number);
     void close();
+
 };
 
 #endif //IOALG_PROJECT1_OUTPUTSTREAMD_H

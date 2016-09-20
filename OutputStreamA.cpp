@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-using namespace std;
 
 OutputStreamA::OutputStreamA() {
     filedesc = -1;
@@ -20,14 +19,13 @@ OutputStreamA::OutputStreamA() {
 OutputStreamA::~OutputStreamA() {
     // TODO Auto-generated destructor stub
 }
-
-int OutputStreamA::create(char* s) {
+ void OutputStreamA::create(char* s) {
     filedesc = ::open(s, O_CREAT|O_RDWR);
-    return filedesc;
+    filedesc;
 }
 
-int OutputStreamA::write(int* number) {
-    return ::write(filedesc, number, sizeof(int));
+void OutputStreamA::write(int* number) {
+    ::write(filedesc, number, sizeof(int));
 }
 
 void OutputStreamA::close() {
