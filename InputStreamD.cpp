@@ -42,10 +42,11 @@ int InputStreamD::open(char* s) {
 }
 
 int InputStreamD::readNext() {
-    if (index == portionSize / sizeof(int)) {
+    if (index == getpagesize() / sizeof(int)) {
         munmap(map, portionSize);
         portionIndex++;
-        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * getpagesize());
+        //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex*getpagesize()); Er korrekt, men giver segfault hvis < 4096.
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
     }
 
     int elm = map[index];
