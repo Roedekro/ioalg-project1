@@ -6,12 +6,6 @@
  */
 
 #include "InputStreamD.h"
-#include <fcntl.h>
-#include <sys/types.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/mman.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>

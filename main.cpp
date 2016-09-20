@@ -1,6 +1,6 @@
 #include <iostream>
 #include "InputStreamD.h"
-#include "OutputStreamC.h"
+#include "OutputStreamD.h"
 #include <stdio.h>
 #include <queue>
 
@@ -10,7 +10,7 @@ int main() {
 
     int bufferSize = 2;
 
-    OutputStreamC * os = new OutputStreamC(bufferSize);
+    OutputStreamD * os = new OutputStreamD();
     os->create(file);
     int number = 42;
     os->write(&number);
