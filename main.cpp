@@ -10,7 +10,7 @@ int main() {
 
     int bufferSize = 2;
 
-    OutputStreamD * os = new OutputStreamD();
+    OutputStreamD * os = new OutputStreamD(16);
     os->create(file);
     int number = 42;
     os->write(&number);
@@ -22,7 +22,7 @@ int main() {
     os->write(&number4);
     os->close();
 
-    InputStreamD * is = new InputStreamD();
+    InputStreamD * is = new InputStreamD(16);
     is->open(file);
 
     //int test = is->readNext();

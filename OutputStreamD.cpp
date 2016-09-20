@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <errno.h>
+#include <string.h>
 
 using namespace std;
 
@@ -43,7 +45,7 @@ void OutputStreamD::create(char* s) {
 
 int OutputStreamD::write(int* number) {
     if(index == portionSize / sizeof(int)) {
-        munmap(&filedesc, portionSize);
+        munmap(map, portionSize);
         portionIndex++;
         map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_PRIVATE, filedesc, portionIndex * portionSize);
         index=0;
@@ -54,6 +56,11 @@ int OutputStreamD::write(int* number) {
 }
 
 void OutputStreamD::close() {
+    //munmap(&filedesc, portionSize);
+    if(munmap(map, portionSize) == -1) {
+        printf ("Error errno is: %s\n",strerror(errno));
+        perror("Error unmapping the file");
+        exit(EXIT_FAILURE);
+    }
     ::close(filedesc);
-    munmap(&filedesc, portionSize);
 }
