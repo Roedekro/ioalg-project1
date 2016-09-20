@@ -54,7 +54,7 @@ int InputStreamD::readNext() {
 }
 
 bool InputStreamD::endOfStream() {
-    return index == fileSize / sizeof(int);
+    return (index >= fileSize / sizeof(int));
 }
 
 void InputStreamD::close() {

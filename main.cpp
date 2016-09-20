@@ -3,9 +3,13 @@
 #include "OutputStreamD.h"
 #include <stdio.h>
 #include <queue>
+#include <unistd.h>
 
 
 int main() {
+
+    cout << "Page Size: " << getpagesize() << '\n';
+
     char file[] = "testfile";
 
     int bufferSize = 2;
@@ -20,7 +24,13 @@ int main() {
     os->write(&number3);
     int number4 = 3030303;
     os->write(&number4);
+    for(int i = 0; i < 10; i++) {
+        os->write(&i);
+    }
     os->close();
+
+    cout << "OutStream Success\n";
+
 
     InputStreamD * is = new InputStreamD(16);
     is->open(file);
