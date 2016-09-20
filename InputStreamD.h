@@ -16,7 +16,9 @@ public:
     int * map;
     int index;
     int fileSize;
-    InputStreamD();
+    int portionSize;
+    int portionIndex;
+    InputStreamD(int portionSize);
     virtual ~InputStreamD();
     int open(char* s);
     int readNext();

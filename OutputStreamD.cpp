@@ -18,6 +18,7 @@ OutputStreamD::OutputStreamD(int portionSize) {
     filedesc = 0;
     index = 0;
     this->portionSize = portionSize;
+    portionIndex = 0;
 }
 
 OutputStreamD::~OutputStreamD() {
@@ -32,8 +33,8 @@ void OutputStreamD::create(char* s) {
     lseek(filedesc, 0, SEEK_SET);
 
     //fseek(file, 0, SEEK_END);
-    fileSize = 8;
-    map = (int *) mmap(0, fileSize, PROT_READ | PROT_WRITE, MAP_PRIVATE, filedesc, 0);
+    //fileSize = 8;
+    map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_PRIVATE, filedesc, 0);
     if (map == MAP_FAILED) {
         perror("Error mmapping the file");
         exit(EXIT_FAILURE);
@@ -41,6 +42,12 @@ void OutputStreamD::create(char* s) {
 }
 
 int OutputStreamD::write(int* number) {
+    if(index == portionSize / sizeof(int)) {
+        munmap(&filedesc, portionSize);
+        portionIndex++;
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_PRIVATE, filedesc, portionIndex * portionSize);
+        index=0;
+    }
     map[index] = *number;
     index++;
     return 0;

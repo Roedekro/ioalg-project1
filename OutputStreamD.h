@@ -14,6 +14,7 @@ public:
     int index;
     int filedesc;
     int portionSize;
+    int portionIndex;
     int *map;
     OutputStreamD(int portionSize);
 

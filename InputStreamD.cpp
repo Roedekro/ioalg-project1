@@ -16,10 +16,12 @@
 
 using namespace std;
 
-InputStreamD::InputStreamD() {
+InputStreamD::InputStreamD(int portionSize) {
     index = 0;
     filedesc = -1;
     fileSize = 0;
+    this->portionSize = portionSize;
+    portionIndex = 0;
 }
 
 InputStreamD::~InputStreamD() {
@@ -31,7 +33,7 @@ int InputStreamD::open(char* s) {
     filedesc = fileno(file);
     fseek(file, 0, SEEK_END);
     fileSize = ftell(file);
-    map = (int *) mmap(0, fileSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
+    map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
     if (map == MAP_FAILED) {
         perror("Error mmapping the file");
         exit(EXIT_FAILURE);
@@ -40,8 +42,10 @@ int InputStreamD::open(char* s) {
 }
 
 int InputStreamD::readNext() {
-    if (index == fileSize / sizeof(int)) {
-        return -1;
+    if (index == portionSize / sizeof(int)) {
+        munmap(map, portionSize);
+        portionIndex++;
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * portionSize);
     }
 
     int elm = map[index];
