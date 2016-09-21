@@ -10,6 +10,9 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -23,6 +26,10 @@ OutputStreamB::~OutputStreamB() {
 
 void OutputStreamB::create(char* s) {
     file = fopen(s, "wb");
+    if(file == NULL) {
+        perror("File StreamB");
+        //exit(EXIT_FAILURE);
+    }
 }
 
 void OutputStreamB::write(int* number) {

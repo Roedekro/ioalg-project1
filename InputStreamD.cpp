@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <errno.h>
+#include <string.h>
 
 using namespace std;
 
@@ -37,7 +39,11 @@ InputStreamD::~InputStreamD() {
 
 void InputStreamD::open(char* s) {
     file = fopen(s, "r+");
+    if(file == NULL) {
+        perror("File is NULL");
+    }
     filedesc = fileno(file);
+    //filedesc = ::open(s, O_RDWR);
     fseek(file, 0, SEEK_END);
     fileSize = ftell(file);
     map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);

@@ -21,7 +21,6 @@ OutputStreamA::~OutputStreamA() {
 }
  void OutputStreamA::create(char* s) {
     filedesc = ::open(s, O_CREAT|O_RDWR);
-    filedesc;
 }
 
 void OutputStreamA::write(int* number) {

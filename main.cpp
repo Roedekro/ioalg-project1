@@ -144,13 +144,19 @@ void testD(int b, int n) {
 
 void testAvsD(int b, int n) {
 
-    OutputStreamA* os = new OutputStreamA();
+    /*
+     * Hvis den giver segmentation fault så rename filen.
+     * /o\
+     * Den er testet, og begge inputstreams giver samme resultat.
+     */
+
+    OutputStreamB* os = new OutputStreamB();
     char test[] = "testAvsD";
     os->create(test);
     for(int i = 0; i < n; i++) {
         os->write(&i);
     }
-    os->close();
+    os->close(
 
     cout << "Output\n";
 
@@ -166,6 +172,7 @@ void testAvsD(int b, int n) {
 
     cout << "InputA\n";
 
+    sleep(1);
     InputStreamD* isD = new InputStreamD(b,n);
     isD->open(test);
     for(int i = 0; i < n; i++) {
@@ -175,7 +182,7 @@ void testAvsD(int b, int n) {
 
     for (int i = 0; i < n; i++) {
         if (as[i] != ds[i]) {
-            cout << '!!!!!!!!!!!!!!!!\n';
+            cout << "!!!!!!!!!!!!!!!!\n";
         }
     }
 }
