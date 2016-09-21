@@ -150,19 +150,28 @@ void testAvsD(int b, int n) {
     for(int i = 0; i < n; i++) {
         os->write(&i);
     }
+    os->close();
+
+    cout << "Output\n";
 
     int * as = new int[n];
     int * ds = new int[n];
 
     InputStreamA* isA = new InputStreamA();
+    isA->open(test);
     for(int i = 0; i < n; i++) {
         as[i] = isA->readNext();
     }
+    isA->close();
+
+    cout << "InputA\n";
 
     InputStreamD* isD = new InputStreamD(b,n);
+    isD->open(test);
     for(int i = 0; i < n; i++) {
         ds[i] = isD->readNext();
     }
+    isD->close();
 
     for (int i = 0; i < n; i++) {
         if (as[i] != ds[i]) {
@@ -222,7 +231,7 @@ int main(int argc, char* argv[]) {
     if(argc == 1) {
         test_type = 7;
         b = 4096;
-        n = 2400000;
+        n = 24000;
         r = 1;
     }
     else {
