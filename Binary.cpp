@@ -1,9 +1,3 @@
-/*
- * Binary.cpp
- *
- *  Created on: 25/09/2015
- *      Author: Martin
- */
 
 #include "Binary.h"
 #include "BinElement.h"

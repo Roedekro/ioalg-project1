@@ -1,9 +1,4 @@
-/*
- * Binary.h
- *
- *  Created on: 25/09/2015
- *      Author: Martin
- */
+
 #include "BinElement.h"
 
 #ifndef BINARY_H_

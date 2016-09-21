@@ -1,9 +1,4 @@
-/*
- * BinElement.cpp
- *
- *  Created on: 29/09/2015
- *      Author: Martin
- */
+
 
 #include "BinElement.h"
 
