@@ -142,6 +142,28 @@ void testD(int b, int n) {
 
 }
 
+void testAvsD(int b, int n) {
+
+    OutputStreamA* os = new OutputStreamA();
+    char test[] = "testAvsD";
+    os->create(test);
+    for(int i = 0; i < n; i++) {
+        os->write(&i);
+    }
+
+    InputStreamA* isA = new InputStreamA();
+    InputStreamD* isD = new InputStreamD(b,n);
+
+    for(int i = 0; i < n; i++) {
+        int a = isA->readNext();
+        int d = isD->readNext();
+        if(a != d) {
+            cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+        }
+    }
+
+}
+
 void testAll(int b, int n, int r) {
 
     long time_testA = 0;
@@ -170,7 +192,7 @@ void testAll(int b, int n, int r) {
         time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
 
         gettimeofday(&te1,NULL);
-        //testD(b,n);
+        testD(b,n);
         gettimeofday(&te2,NULL);
         time_testD = time_testD + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
     }
@@ -191,9 +213,9 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 6;
+        test_type = 7;
         b = 4096;
-        n = 24000000;
+        n = 2400000;
         r = 1;
     }
     else {
@@ -274,6 +296,9 @@ int main(int argc, char* argv[]) {
     }
     else if(test_type == 6) {
         test1();
+    }
+    else if(test_type = 7) {
+        testAvsD(b,n);
     }
     //test1();
 

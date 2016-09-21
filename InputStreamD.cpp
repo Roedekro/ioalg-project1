@@ -53,6 +53,7 @@ int InputStreamD::readNext() {
         portionIndex++;
         map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex*getpagesize());
         //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
+        index = 0;
     }
 
     int elm = map[index];
@@ -66,5 +67,5 @@ bool InputStreamD::endOfStream() {
 
 void InputStreamD::close() {
     fclose(file);
-    munmap(map, fileSize);
+    munmap(map, portionSize);
 }
