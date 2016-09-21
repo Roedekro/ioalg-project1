@@ -22,7 +22,7 @@ void test1() {
     int bufferSize = 2;
 
     OutputStreamD * os = new OutputStreamD(16);
-    os->create(file);
+    os->create(file, 4);
     int number = 42;
     os->write(&number);
     int number2 = 34;
@@ -128,7 +128,7 @@ void testD(int b, int n) {
     InputStreamD* is = new InputStreamD(b);
 
     char test[] = "testD";
-    os->create(test);
+    os->create(test, n);
     for(int i = 0; i < n; i++) {
         os->write(&i);
     }

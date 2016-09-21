@@ -19,7 +19,14 @@ using namespace std;
 OutputStreamD::OutputStreamD(int portionSize) {
     filedesc = 0;
     index = 0;
-    this->portionSize = portionSize;
+    int temp = portionSize / getpagesize();
+    if(temp == 0) {
+        this->portionSize = getpagesize();
+    }
+    else {
+        this->portionSize = temp * getpagesize();
+    }
+    //this->portionSize = portionSize;
     portionIndex = 0;
 }
 
@@ -27,10 +34,10 @@ OutputStreamD::~OutputStreamD() {
     // TODO Auto-generated destructor stub
 }
 
-void OutputStreamD::create(char* s) {
+void OutputStreamD::create(char* s, int n) {
     filedesc = open(s, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
 
-    lseek(filedesc, 4 * 10000 + 1, SEEK_SET);
+    lseek(filedesc,sizeof(int) * n + 1, SEEK_SET);
     ::write(filedesc, "", 1);
     lseek(filedesc, 0, SEEK_SET);
 
@@ -48,9 +55,9 @@ void OutputStreamD::write(int* number) {
     if(index == portionSize / sizeof(int)) {
         munmap(map, portionSize);
         portionIndex++;
-        //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * portionSize);
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex * portionSize);
         // Ignore portionIndex, offset must be a multiplum of pagesize
-        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, getpagesize()*portionIndex);
+        //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, getpagesize()*portionIndex);
         if (map == MAP_FAILED) {
             perror("Error mmapping the file");
             exit(EXIT_FAILURE);

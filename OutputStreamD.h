@@ -17,7 +17,7 @@ public:
     int *map;
     OutputStreamD(int portionSize);
     virtual ~OutputStreamD();
-    void create(char* s);
+    void create(char* s, int n);
     void write(int* number);
     void close();
 
