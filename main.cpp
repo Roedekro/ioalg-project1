@@ -151,17 +151,24 @@ void testAvsD(int b, int n) {
         os->write(&i);
     }
 
-    InputStreamA* isA = new InputStreamA();
-    InputStreamD* isD = new InputStreamD(b,n);
+    int * as = new int[n];
+    int * ds = new int[n];
 
+    InputStreamA* isA = new InputStreamA();
     for(int i = 0; i < n; i++) {
-        int a = isA->readNext();
-        int d = isD->readNext();
-        if(a != d) {
-            cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-        }
+        as[i] = isA->readNext();
     }
 
+    InputStreamD* isD = new InputStreamD(b,n);
+    for(int i = 0; i < n; i++) {
+        ds[i] = isD->readNext();
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (as[i] != ds[i]) {
+            cout << '!!!!!!!!!!!!!!!!\n';
+        }
+    }
 }
 
 void testAll(int b, int n, int r) {
