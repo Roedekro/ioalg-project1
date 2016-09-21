@@ -142,21 +142,7 @@ void testD(int b, int n) {
 
 }
 
-int main(int argc, char* argv[]) {
-
-    int b, n ,r;
-    if(argc == 1) {
-        b = 4096;
-        n = 24000000;
-        r = 1;
-    }
-    else {
-        b = atoi(argv[1]);
-        n = atoi(argv[2]);
-        r = atoi(argv[3]);
-    }
-
-    cout << "Running tests with B = " << b << " and N = " << n << " for " << r << " runs\n";
+void testAll(int b, int n, int r) {
 
     long time_testA = 0;
     long time_testB = 0;
@@ -199,6 +185,93 @@ int main(int argc, char* argv[]) {
     cout << "TestB " << time_testB << '\n';
     cout << "TestC " << time_testC << '\n';
     cout << "TestD " << time_testD << '\n';
+}
+
+int main(int argc, char* argv[]) {
+
+    int test_type, b, n ,r;
+    if(argc == 1) {
+        test_type = 1;
+        b = 4096;
+        n = 24000000;
+        r = 1;
+    }
+    else {
+        test_type = atoi(argv[1]);
+        b = atoi(argv[2]);
+        n = atoi(argv[3]);
+        r = atoi(argv[4]);
+    }
+
+    cout << "Running test type " << test_type << " with B = " << b << " and N = " << n << " for " << r << " runs\n";
+
+    if(test_type == 1) {
+        testAll(b, n, r);
+    }
+    else if(test_type == 2) {
+        long time_testA = 0;
+        struct timeval te1;
+        struct timeval te2;
+
+        for(int i = 0; i < r; i++) {
+            gettimeofday(&te1,NULL);
+            testA(b,n);
+            gettimeofday(&te2,NULL);
+            time_testA = time_testA + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        }
+
+        if(time_testA > 0) time_testA = time_testA / r;
+        cout << "Times in milliseconds averaged over runs:\n";
+        cout << "TestA " << time_testA << '\n';
+    }
+    else if(test_type == 3) {
+        long time_testB = 0;
+        struct timeval te1;
+        struct timeval te2;
+
+        for(int i = 0; i < r; i++) {
+            gettimeofday(&te1,NULL);
+            testB(b,n);
+            gettimeofday(&te2,NULL);
+            time_testB = time_testB + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        }
+
+        if(time_testB > 0) time_testB = time_testB / r;
+        cout << "Times in milliseconds averaged over runs:\n";
+        cout << "TestB " << time_testB << '\n';
+    }
+    else if(test_type == 4) {
+        long time_testC = 0;
+        struct timeval te1;
+        struct timeval te2;
+
+        for(int i = 0; i < r; i++) {
+            gettimeofday(&te1,NULL);
+            testC(b,n);
+            gettimeofday(&te2,NULL);
+            time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        }
+
+        if(time_testC > 0) time_testC = time_testC / r;
+        cout << "Times in milliseconds averaged over runs:\n";
+        cout << "TestC " << time_testC << '\n';
+    }
+    else if(test_type == 5) {
+        long time_testD = 0;
+        struct timeval te1;
+        struct timeval te2;
+
+        for(int i = 0; i < r; i++) {
+            gettimeofday(&te1,NULL);
+            testD(b,n);
+            gettimeofday(&te2,NULL);
+            time_testD = time_testD + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        }
+
+        if(time_testD > 0) time_testD = time_testD / r;
+        cout << "Times in milliseconds averaged over runs:\n";
+        cout << "TestD " << time_testD << '\n';
+    }
     //test1();
 
     return 0;
