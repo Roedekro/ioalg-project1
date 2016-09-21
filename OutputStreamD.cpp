@@ -16,7 +16,8 @@
 
 using namespace std;
 
-OutputStreamD::OutputStreamD(int portionSize) {
+OutputStreamD::OutputStreamD(int portionSize, int n) {
+    this->n = n;
     filedesc = 0;
     index = 0;
     int temp = portionSize / getpagesize();
@@ -34,7 +35,7 @@ OutputStreamD::~OutputStreamD() {
     // TODO Auto-generated destructor stub
 }
 
-void OutputStreamD::create(char* s, int n) {
+void OutputStreamD::create(char* s) {
     filedesc = open(s, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
 
     lseek(filedesc,sizeof(int) * n + 1, SEEK_SET);

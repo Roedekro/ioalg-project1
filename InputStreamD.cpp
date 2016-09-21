@@ -16,11 +16,18 @@
 
 using namespace std;
 
-InputStreamD::InputStreamD(int portionSize) {
+InputStreamD::InputStreamD(int portionSize, int n) {
+    this->n = n;
     index = 0;
     filedesc = -1;
     fileSize = 0;
-    this->portionSize = portionSize;
+    int temp = portionSize / getpagesize();
+    if(temp == 0) {
+        this->portionSize = getpagesize();
+    }
+    else {
+        this->portionSize = temp * getpagesize();
+    }
     portionIndex = 0;
 }
 
@@ -44,8 +51,8 @@ int InputStreamD::readNext() {
     if (index == getpagesize() / sizeof(int)) {
         munmap(map, portionSize);
         portionIndex++;
-        //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex*getpagesize()); Er korrekt, men giver segfault hvis < 4096.
-        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
+        map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, portionIndex*getpagesize());
+        //map = (int *) mmap(0, portionSize, PROT_READ | PROT_WRITE, MAP_SHARED, filedesc, 0);
     }
 
     int elm = map[index];

@@ -22,7 +22,8 @@ public:
     int fileSize;
     int portionSize;
     int portionIndex;
-    InputStreamD(int portionSize);
+    int n;
+    InputStreamD(int portionSize, int n);
     virtual ~InputStreamD();
     void open(char* s);
     int readNext();

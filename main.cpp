@@ -21,8 +21,8 @@ void test1() {
 
     int bufferSize = 2;
 
-    OutputStreamD * os = new OutputStreamD(16);
-    os->create(file, 4);
+    OutputStreamD * os = new OutputStreamD(16,14);
+    os->create(file);
     int number = 42;
     os->write(&number);
     int number2 = 34;
@@ -39,7 +39,7 @@ void test1() {
     cout << "OutStream Success\n";
 
 
-    InputStreamD * is = new InputStreamD(16);
+    InputStreamD * is = new InputStreamD(16,14);
     is->open(file);
 
     //int test = is->readNext();
@@ -124,11 +124,11 @@ void testC(int b, int n) {
 
 void testD(int b, int n) {
 
-    OutputStreamD* os = new OutputStreamD(b);
-    InputStreamD* is = new InputStreamD(b);
+    OutputStreamD* os = new OutputStreamD(b,n);
+    InputStreamD* is = new InputStreamD(b,n);
 
     char test[] = "testD";
-    os->create(test, n);
+    os->create(test);
     for(int i = 0; i < n; i++) {
         os->write(&i);
     }
@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 1;
+        test_type = 6;
         b = 4096;
         n = 24000000;
         r = 1;
@@ -271,6 +271,9 @@ int main(int argc, char* argv[]) {
         if(time_testD > 0) time_testD = time_testD / r;
         cout << "Times in milliseconds averaged over runs:\n";
         cout << "TestD " << time_testD << '\n';
+    }
+    else if(test_type == 6) {
+        test1();
     }
     //test1();
 

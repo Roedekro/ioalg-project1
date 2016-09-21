@@ -15,9 +15,10 @@ public:
     int portionSize;
     int portionIndex;
     int *map;
-    OutputStreamD(int portionSize);
+    int n;
+    OutputStreamD(int portionSize, int n);
     virtual ~OutputStreamD();
-    void create(char* s, int n);
+    void create(char* s);
     void write(int* number);
     void close();
 
