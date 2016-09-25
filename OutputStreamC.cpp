@@ -38,6 +38,8 @@ void OutputStreamC::write(int* number) {
 void OutputStreamC::close() {
     if (index != 0) {
         ::write(filedesc, buffer, index * sizeof(int));
+        //::write(filedesc, buffer, (index - 1) * sizeof(int));
+        //::write(filedesc, buffer, sizeof(buffer));
     }
 
     ::close(filedesc);
