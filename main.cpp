@@ -156,7 +156,7 @@ void testAvsD(int b, int n) {
     for(int i = 0; i < n; i++) {
         os->write(&i);
     }
-    os->close(
+    os->close();
 
     cout << "Output\n";
 
@@ -236,9 +236,9 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 7;
+        test_type = 1; // v1.1
         b = 4096;
-        n = 24000;
+        n = 240000;
         r = 1;
     }
     else {
