@@ -11,10 +11,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-using namespace std;
+//using namespace std;
 
 InputStreamC::InputStreamC(int bufferSize) {
-    index = 1000000000;
+    index = 2000000000;
     buffer = new int[bufferSize];
 }
 
@@ -24,6 +24,7 @@ InputStreamC::~InputStreamC() {
 
 void InputStreamC::open(char* s) {
     filedesc = ::open(s, O_RDONLY);
+    //filedesc = ::open(s, O_RDWR);
     if(filedesc == -1) {
         perror("Error opening the file in InputStreamC");
         exit(EXIT_FAILURE);

@@ -107,7 +107,7 @@ void testC(int b, int n) {
     OutputStreamC* os = new OutputStreamC(b);
     InputStreamC* is = new InputStreamC(b);
 
-    char test[] = "testC234";
+    char test[] = "testC";
     os->create(test);
     for(int i = 0; i < n; i++) {
         os->write(&i);
