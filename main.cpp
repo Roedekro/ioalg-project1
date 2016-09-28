@@ -237,7 +237,7 @@ void testAll(int b, int n, int r) {
 }
 
 void generateDwaymergingFiles(int n, int d) {
-    OutputStreamD* os = new OutputStreamD(32768, n);
+
     char ourString[] = "test2";
 
     //char test[] = "test2";
@@ -247,19 +247,29 @@ void generateDwaymergingFiles(int n, int d) {
         //ss << ourString << i;
        // test = ss.str().c_str();
 
-
+        OutputStreamD* os = new OutputStreamD(32768, n);
         ostringstream oss;
         oss << i;
         string s = "test2" + oss.str();
         char test[s.size()];
         strncpy(test, s.c_str(), s.size());
+        //cout << "Creating " << test << "\n";
         os->create(test);
         for(int j = 0; j < n; j++) {
             os->write(&j);
+            //cout << "Writing " << j << "\n";
         }
         os->close();
     }
-    delete(os);
+
+    /*InputStreamD* is = new InputStreamD(32768, 10);
+    char test[] = "test23";
+    is->open(test);
+    cout << "Reading " << is->readNext() << "\n";
+    cout << "Reading " << is->readNext() << "\n";
+    cout << "Reading " << is->readNext() << "\n";
+    cout << "Reading " << is->readNext() << "\n";
+    is->close();*/
 }
 
 
@@ -306,11 +316,11 @@ void dwaymerging(int d, int n) {
             BinElement* binOut = binary->outheap(binArray, d);
             int out = binOut->value;
             os->write(&out);
-            cout << "Value = " << binOut->value << "\n";
+            //cout << "Value = " << binOut->value << "\n";
 
             if(!istreams[binOut->id]->endOfStream()) {
                 binOut->value = istreams[binOut->id]->readNext();
-                cout << "Inserting = " << binOut->value << "\n";
+                //cout << "Inserting = " << binOut->value << "\n";
                 binary->inheap(binArray, d, binOut);
             }
             else {
