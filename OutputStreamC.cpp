@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <initializer_list>
-#include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -27,7 +27,8 @@ void OutputStreamC::create(char* s) {
 
 void OutputStreamC::write(int* number) {
     if (index >= sizeof(buffer) / sizeof(int)) {
-        ::write(filedesc, buffer, sizeof(buffer));
+        int tmp = ::write(filedesc, buffer, sizeof(buffer));
+        if(tmp == -1) cout << "Error writing to file in OutC\n";
         index = 0;
     }
 
@@ -36,11 +37,14 @@ void OutputStreamC::write(int* number) {
 }
 
 void OutputStreamC::close() {
-    if (index != 0) {
-        ::write(filedesc, buffer, index * sizeof(int));
+    if (index != 1) {
+        //::write(filedesc, buffer, index * sizeof(int));
+        //::write(filedesc, buffer, (index - 1) * sizeof(int));
+        //::write(filedesc, buffer, sizeof(buffer));
     }
 
-    ::close(filedesc);
+    int tmp = ::close(filedesc);
+    if(tmp == -1) cout << "Error closing file in OutC\n";
     delete(buffer);
     index = 0;
 }
