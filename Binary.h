@@ -1,3 +1,10 @@
+/*
+ * Binary.h
+ *
+ *  Created on: 28/09/2016
+ *      Author: Martin
+ */
+
 
 #include "BinElement.h"
 

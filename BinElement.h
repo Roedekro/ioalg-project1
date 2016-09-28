@@ -1,4 +1,9 @@
-
+/*
+ * BinaryElement.h
+ *
+ *  Created on: 28/09/2016
+ *      Author: Martin
+ */
 
 #ifndef BINELEMENT_H_
 #define BINELEMENT_H_

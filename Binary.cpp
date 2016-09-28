@@ -1,3 +1,12 @@
+/*
+ * Binary.cpp
+ *
+ *  Created on: 28/09/2016
+ *      Author: Martin
+ */
+
+// Baseret på Algorithm 232 Heapsort af Williams 1964
+// OBS! Bemærk at vi pr. paperet bruger et 1-indekseret array!
 
 #include "Binary.h"
 #include "BinElement.h"
@@ -8,7 +17,6 @@ using namespace std;
 
 Binary::Binary() {
     comparisons = 0;
-
 }
 
 Binary::~Binary() {

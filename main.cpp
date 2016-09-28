@@ -12,7 +12,11 @@
 #include <unistd.h>
 #include <time.h>
 #include <sys/time.h>
+#include <sstream>
+#include <cstring>
 #include "OutputStream.h"
+#include "Binary.h"
+#include "BinElement.h"
 
 void test1() {
     cout << "Page Size: " << getpagesize() << '\n';
@@ -232,13 +236,115 @@ void testAll(int b, int n, int r) {
     cout << "TestD " << time_testD << '\n';
 }
 
+void generateDwaymergingFiles(int n, int d) {
+    OutputStreamD* os = new OutputStreamD(32768, n);
+    char ourString[] = "test2";
+
+    //char test[] = "test2";
+    for(int i = 0; i < d; i++) {
+        //test = "test2" + i;
+       // stringstream ss;
+        //ss << ourString << i;
+       // test = ss.str().c_str();
+
+
+        ostringstream oss;
+        oss << i;
+        string s = "test2" + oss.str();
+        char test[s.size()];
+        strncpy(test, s.c_str(), s.size());
+        os->create(test);
+        for(int j = 0; j < n; j++) {
+            os->write(&j);
+        }
+        os->close();
+    }
+    delete(os);
+}
+
+
+void dwaymerging(int d, int n) {
+
+    int org_d = d;
+
+    char ourString[] = "test2";
+
+    //char test[] = "test2";
+    InputStream* istreams[d];
+    for(int i = 0; i < d; i++) {
+        istreams[i] = new InputStreamD(32768, n);
+        ostringstream oss;
+        oss << i;
+        string s = "test2" + oss.str();
+        char test[s.size()];
+        strncpy(test, s.c_str(), s.size());
+        istreams[i]->open(test);
+    }
+
+    BinElement* binArray[d+2];
+    Binary* binary = new Binary();
+
+    for(int i = 0; i < d; i++) {
+        BinElement* temp = new BinElement(i, istreams[i]->readNext());
+        binArray[i+1] = temp;
+    }
+
+    binary->setheap(binArray, d);
+
+    OutputStreamD* os = new OutputStreamD(32768, n);
+    char test[] = "test2out";
+    os->create(test);
+
+    bool running = true;
+
+    while(running) {
+
+        if(d == 0) {
+            running = false;
+        }
+        else {
+            BinElement* binOut = binary->outheap(binArray, d);
+            int out = binOut->value;
+            os->write(&out);
+            cout << "Value = " << binOut->value << "\n";
+
+            if(!istreams[binOut->id]->endOfStream()) {
+                binOut->value = istreams[binOut->id]->readNext();
+                cout << "Inserting = " << binOut->value << "\n";
+                binary->inheap(binArray, d, binOut);
+            }
+            else {
+                d--;
+            }
+        }
+    }
+
+    for(int i = 0; i < d; i++) {
+        istreams[i]->close();
+        //delete(istreams[i]);
+    }
+    //delete(istreams);
+
+    for(int i = 0; i < org_d; i++) {
+       // delete(binArray[i+1]);
+    }
+    //delete(binArray);
+    //delete(binary);
+
+    os->close();
+    //delete(os);
+
+}
+
+
+
 int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 1; // v1.1
+        test_type = 8; // v1.1
         b = 4096;
-        n = 240000;
+        n = 10;
         r = 1;
     }
     else {
@@ -320,8 +426,12 @@ int main(int argc, char* argv[]) {
     else if(test_type == 6) {
         test1();
     }
-    else if(test_type = 7) {
+    else if(test_type == 7) {
         testAvsD(b,n);
+    }
+    else if(test_type == 8) {
+        generateDwaymergingFiles(n, 4);
+        dwaymerging(4,n);
     }
     //test1();
 
