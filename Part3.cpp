@@ -43,3 +43,7 @@ Part3::Part3(int N, int M, int d, char* file) {
 
 
 }
+
+Part3::~Part3() {
+    // TODO Auto-generated destructor stub
+}

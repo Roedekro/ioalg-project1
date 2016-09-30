@@ -236,6 +236,149 @@ void testAll(int b, int n, int r) {
     cout << "TestD " << time_testD << '\n';
 }
 
+void testWrites(int n) {
+
+    long time_testA = 0;
+    long time_testB = 0;
+    long time_testC = 0;
+    long time_testD = 0;
+    struct timeval te1;
+    struct timeval te2;
+    int r = 10;
+
+    for(int i = 0; i < r; i++) {
+        cout << "Run " << i+1 << '\n';
+
+        gettimeofday(&te1,NULL);
+        OutputStreamA* osA = new OutputStreamA();
+        char testA[] = "testWA";
+        osA->create(testA);
+        for(int j = 0; j < n; j++) {
+            osA->write(&j);
+        }
+        osA->close();
+        gettimeofday(&te2,NULL);
+        time_testA = time_testA + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+
+        gettimeofday(&te1,NULL);
+        OutputStreamB* osB = new OutputStreamB();
+        char testB[] = "testWB";
+        osB->create(testB);
+        for(int j = 0; j < n; j++) {
+            osB->write(&j);
+        }
+        osB->close();
+        gettimeofday(&te2,NULL);
+        time_testB = time_testB + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+
+        gettimeofday(&te1,NULL);
+        OutputStreamC* osC = new OutputStreamC(131072);
+        char testC[] = "testWC";
+        osC->create(testC);
+        for(int j = 0; j < n; j++) {
+            osC->write(&j);
+        }
+        osC->close();
+        gettimeofday(&te2,NULL);
+        time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+
+        gettimeofday(&te1,NULL);
+        OutputStreamD* osD = new OutputStreamD(32768, n);
+        char testD[] = "testWD";
+        osD->create(testD);
+        for(int j = 0; j < n; j++) {
+            osD->write(&j);
+        }
+        osD->close();
+        gettimeofday(&te2,NULL);
+        time_testD = time_testD + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+    }
+
+    if(time_testA > 0) time_testA = time_testA / r;
+    if(time_testB > 0) time_testB = time_testB / r;
+    if(time_testC > 0) time_testC = time_testC / r;
+    if(time_testD > 0) time_testD = time_testD / r;
+
+    cout << "Write test. Times in milliseconds averaged over runs:\n";
+    cout << "TestA " << time_testA << '\n';
+    cout << "TestB " << time_testB << '\n';
+    cout << "TestC " << time_testC << '\n';
+    cout << "TestD " << time_testD << '\n';
+}
+
+void testReads(int n) {
+
+    long time_testA = 0;
+    long time_testB = 0;
+    long time_testC = 0;
+    long time_testD = 0;
+    struct timeval te1;
+    struct timeval te2;
+    int r = 10;
+
+    for(int i = 0; i < r; i++) {
+        cout << "Run " << i+1 << '\n';
+
+        gettimeofday(&te1,NULL);
+        InputStreamA* isA = new InputStreamA();
+        char testA[] = "testWA";
+        isA->open(testA);
+        for(int j = 0; j < n; j++) {
+            isA->readNext();
+        }
+        isA->close();
+        gettimeofday(&te2,NULL);
+        time_testA = time_testA + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Test A Completed\n";
+
+        gettimeofday(&te1,NULL);
+        InputStreamB* isB = new InputStreamB();
+        char testB[] = "testWB";
+        isB->open(testB);
+        for(int j = 0; j < n; j++) {
+            isB->readNext();
+        }
+        isB->close();
+        gettimeofday(&te2,NULL);
+        time_testB = time_testB + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Test B Completed\n";
+
+        gettimeofday(&te1,NULL);
+        InputStreamC* isC = new InputStreamC(131072);
+        char testC[] = "testWC";
+        isC->open(testC);
+        for(int j = 0; j < n; j++) {
+            isC->readNext();
+        }
+        isC->close();
+        gettimeofday(&te2,NULL);
+        time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Test C Completed\n";
+
+        gettimeofday(&te1,NULL);
+        InputStreamD* isD = new InputStreamD(32768,n);
+        char testD[] = "testWD";
+        isD->open(testD);
+        for(int j = 0; j < n; j++) {
+            isD->readNext();
+        }
+        isD->close();
+        gettimeofday(&te2,NULL);
+        time_testD = time_testD + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+    }
+
+    if(time_testA > 0) time_testA = time_testA / r;
+    if(time_testB > 0) time_testB = time_testB / r;
+    if(time_testC > 0) time_testC = time_testC / r;
+    if(time_testD > 0) time_testD = time_testD / r;
+
+    cout << "Read test. Times in milliseconds averaged over runs:\n";
+    cout << "TestA " << time_testA << '\n';
+    cout << "TestB " << time_testB << '\n';
+    cout << "TestC " << time_testC << '\n';
+    cout << "TestD " << time_testD << '\n';
+}
+
 void generateDwaymergingFiles(int n, int d) {
 
     char ourString[] = "test2";
@@ -442,6 +585,12 @@ int main(int argc, char* argv[]) {
     else if(test_type == 8) {
         generateDwaymergingFiles(n, 4);
         dwaymerging(4,n);
+    }
+    else if(test_type == 9) {
+        testWrites(n);
+    }
+    else if(test_type = 10) {
+        testReads(n);
     }
     //test1();
 

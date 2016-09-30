@@ -8,8 +8,8 @@
 
 class Part3 {
 
-    void Part3(int N, int M, int d, char* file);
-    virtual void ~Part3();
+    Part3(int N, int M, int d, char* file);
+    virtual ~Part3();
 
 };
 
