@@ -472,20 +472,22 @@ void dwaymerging(int d, int n) {
         }
     }
 
+    d = org_d;
+
     for(int i = 0; i < d; i++) {
         istreams[i]->close();
-        //delete(istreams[i]);
+        delete(istreams[i]);
     }
     //delete(istreams);
 
     for(int i = 0; i < org_d; i++) {
-       // delete(binArray[i+1]);
+       //delete(binArray[i+1]); Kan vi ikke da vi har tømt binarray
     }
     //delete(binArray);
-    //delete(binary);
+    delete(binary);
 
     os->close();
-    //delete(os);
+    delete(os);
 
 }
 
