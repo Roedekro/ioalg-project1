@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <queue>
+#include <iostream>
 #include "Part3.h"
 #include "BinElement.h"
 #include "Binary.h"
@@ -46,15 +47,17 @@ Part3::Part3(int N, int M, int d, char* file) {
             for(int j = 0; j < M; j++) {
                 int temp = internalArray[j];
                 os->write(&temp);
+                cout << "Writing: " << temp << "\n";
             }
 
+            os->close();
             r++;
             j=0;
         }
 
 
 
-        if(i == N-1) {
+        else if(i == N-1 && N%M != 0) {
             // Eventuel rest
 
             // SORTER!
@@ -75,6 +78,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             }
 
             r++;
+            os->close();
         }
     }
 
@@ -108,7 +112,7 @@ Part3::Part3(int N, int M, int d, char* file) {
 
     // Merge
     char test[] = "part3out";
-    merge(d, M, vs, test, 1);
+    merge(d, r, vs, test, 1);
 
 }
 
@@ -124,14 +128,15 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
         vector<string> vs3(n/d+1); // De strings vi får tilbage
         // Divide
         for(int i = 0; i < n; i++) {
-            vs2[r] = vs[i];
+            vs2[j] = vs[i];
             j++;
             if(j == d) {
                 ostringstream oss;
                 oss << r;
                 ostringstream oss2;
                 oss2 << depth;
-                string s = oss2.str() + "part" + oss.str();
+                string s = "p" + oss2.str() + "part" + oss.str();
+                cout << s << "\n";
                 char test[s.size()];
                 strncpy(test, s.c_str(), s.size());
                 vs3[r] = test;
@@ -139,13 +144,13 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
                 r++;
                 j=0;
             }
-            else if(i == n-1) {
+            else if(i == n-1 && n%d != 0) {
                 // Til at behandle en eventuel rest mængde
                 ostringstream oss;
                 oss << r;
                 ostringstream oss2;
                 oss2 << depth;
-                string s = oss2.str() + "part" + oss.str();
+                string s = "p" + oss2.str() + "part" + oss.str();
                 char test[s.size()];
                 strncpy(test, s.c_str(), s.size());
                 vs3[r] = test;
@@ -168,6 +173,8 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
 
 void Part3::dwaymerging(int d, vector<string> vs, char* out) {
 
+    cout << "Dway merging " << d << " in " << out << "\n";
+
     int org_d = d;
 
 
@@ -187,6 +194,7 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
     for(int i = 0; i < d; i++) {
         BinElement* temp = new BinElement(i, istreams[i]->readNext());
         binArray[i+1] = temp;
+        cout << "Put " << temp->value << "\n";
     }
 
     binary->setheap(binArray, d);
@@ -205,12 +213,12 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
             BinElement* binOut = binary->outheap(binArray, d);
             int outInt = binOut->value;
             os->write(&outInt);
-            //cout << "Value = " << binOut->value << "\n";
+            cout << out << " Value = " << binOut->value << "\n";
 
             if(!istreams[binOut->id]->endOfStream()) {
                 binOut->value = istreams[binOut->id]->readNext();
-                //cout << "Inserting = " << binOut->value << "\n";
-                binary->inheap(binArray, d, binOut);
+                cout << "Inserting = " << binOut->value << "\n";
+                binary->inheap(binArray, d-1, binOut);
             }
             else {
                 d--;

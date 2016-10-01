@@ -96,10 +96,12 @@ BinElement* Binary::outheap(BinElement** a, int n) {
 void Binary::setheap(BinElement** a, int n) {
     int j = 1;
     bool b = true;
+    if(j >= n) b = false;
     while(b) {
         inheap(a,j,a[j+1]);
         j++;
         if(j >= n) b = false;
+        //if(j >= n) b = false;
     }
 }
 

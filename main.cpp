@@ -516,7 +516,41 @@ void testQuick() {
 }
 
 void testPart3() {
-    //Part3* p3 = new Part3();
+    char test[] = "testPart3Input";
+    OutputStreamB* os = new OutputStreamB();
+    os->create(test);
+    int j = 2;
+    os->write(&j);
+    j= 4;
+    os->write(&j);
+    j= 5;
+    os->write(&j);
+    j= 7;
+    os->write(&j);
+    j= 8;
+    os->write(&j);
+    j= 9;
+    os->write(&j);
+    j= 1;
+    os->write(&j);
+    j= 10;
+    os->write(&j);
+    j= 6;
+    os->write(&j);
+    j= 3;
+    os->write(&j);
+
+    os->close();
+
+    Part3* p3 = new Part3(10,2,2,test);
+
+    char test2[] = "part3out";
+    InputStreamB* is = new InputStreamB();
+    is->open(test2);
+    for(int i = 0; i < 10; i++) {
+        cout << is->readNext() << "\n";
+    }
+    is->close();
 }
 
 
@@ -525,7 +559,7 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 11; // v1.2
+        test_type = 12; // v1.2
         b = 4096;
         n = 10;
         r = 1;
@@ -624,6 +658,9 @@ int main(int argc, char* argv[]) {
     }
     else if(test_type == 11) {
         testQuick();
+    }
+    else if(test_type == 12) {
+        testPart3();
     }
     //test1();
 
