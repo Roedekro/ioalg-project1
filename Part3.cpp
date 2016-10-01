@@ -44,8 +44,8 @@ Part3::Part3(int N, int M, int d, char* file) {
             vs[r] = test;
             os->create(test);
 
-            for(int j = 0; j < M; j++) {
-                int temp = internalArray[j];
+            for(int x = 0; x < M; x++) {
+                int temp = internalArray[x];
                 os->write(&temp);
                 cout << "Writing: " << temp << "\n";
             }
@@ -72,9 +72,10 @@ Part3::Part3(int N, int M, int d, char* file) {
             vs[r] = test;
             os->create(test);
 
-            for(int j = 0; j < N&div; j++) {
-                int temp = internalArray[j];
+            for(int x = 0; x < N%M; x++) {
+                int temp = internalArray[x];
                 os->write(&temp);
+                cout << "Writing: " << temp << "\n";
             }
 
             r++;
@@ -124,13 +125,13 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
     if(n > d) {
         int r = 0;
         int j = 0;
-        vector<string> vs2(n/d); // Til at sende strings videre med
-        vector<string> vs3(n/d+1); // De strings vi får tilbage
+        vector<string> vs2(d+1); // Til at sende strings videre med
+        vector<string> vs3(d+1); // De strings vi får tilbage
         // Divide
         for(int i = 0; i < n; i++) {
             vs2[j] = vs[i];
             j++;
-            if(j == d) {
+            if(j == n/d) {
                 ostringstream oss;
                 oss << r;
                 ostringstream oss2;
