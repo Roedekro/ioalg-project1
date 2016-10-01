@@ -12,7 +12,9 @@ public:
     Quicksort();
     virtual ~Quicksort();
     void sort(int * array, int p, int r);
-    int partition(int * array, int p, int r);
+    int partition(int * array, int p, int r, int pivot);
+    int medianOfMedians(int * array, int p, int r);
+    int insertionsort(int * array, int p, int r);
 };
 
 

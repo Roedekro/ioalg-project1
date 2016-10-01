@@ -47,7 +47,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             for(int x = 0; x < M; x++) {
                 int temp = internalArray[x];
                 os->write(&temp);
-                cout << "Writing: " << temp << "\n";
+                //cout << "Writing: " << temp << "\n";
             }
 
             os->close();
@@ -75,7 +75,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             for(int x = 0; x < N%M; x++) {
                 int temp = internalArray[x];
                 os->write(&temp);
-                cout << "Writing: " << temp << "\n";
+                //cout << "Writing: " << temp << "\n";
             }
 
             r++;
@@ -137,7 +137,7 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
                 ostringstream oss2;
                 oss2 << depth;
                 string s = "p" + oss2.str() + "part" + oss.str();
-                cout << s << "\n";
+                //cout << s << "\n";
                 char test[s.size()];
                 strncpy(test, s.c_str(), s.size());
                 vs3[r] = test;
@@ -174,7 +174,7 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
 
 void Part3::dwaymerging(int d, vector<string> vs, char* out) {
 
-    cout << "Dway merging " << d << " in " << out << "\n";
+    //cout << "Dway merging " << d << " in " << out << "\n";
 
     int org_d = d;
 
@@ -195,7 +195,7 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
     for(int i = 0; i < d; i++) {
         BinElement* temp = new BinElement(i, istreams[i]->readNext());
         binArray[i+1] = temp;
-        cout << "Put " << temp->value << "\n";
+        //cout << "Put " << temp->value << "\n";
     }
 
     binary->setheap(binArray, d);
@@ -214,11 +214,11 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
             BinElement* binOut = binary->outheap(binArray, d);
             int outInt = binOut->value;
             os->write(&outInt);
-            cout << out << " Value = " << binOut->value << "\n";
+            //cout << out << " Value = " << binOut->value << "\n";
 
             if(!istreams[binOut->id]->endOfStream()) {
                 binOut->value = istreams[binOut->id]->readNext();
-                cout << "Inserting = " << binOut->value << "\n";
+                //cout << "Inserting = " << binOut->value << "\n";
                 binary->inheap(binArray, d-1, binOut);
             }
             else {

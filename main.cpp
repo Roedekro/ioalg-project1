@@ -542,7 +542,7 @@ void testPart3() {
 
     os->close();
 
-    Part3* p3 = new Part3(10,2,2,test);
+    Part3* p3 = new Part3(10,8,2,test);
 
     char test2[] = "part3out";
     InputStreamB* is = new InputStreamB();
@@ -553,16 +553,42 @@ void testPart3() {
     is->close();
 }
 
+void testPart32(int n, int m, int d) {
+    char test[] = "testPart3Input";
+    OutputStreamB *os = new OutputStreamB();
+    os->create(test);
+    for(int i = 0; i < n; i++) {
+        int x = rand() % 1000000;
+        os->write(&x);
+    }
+    os->close();
+
+    Part3 *p3 = new Part3(n, m, d, test);
+
+    char test2[] = "part3out";
+    InputStreamB *is = new InputStreamB();
+    is->open(test2);
+    int prev = 0;
+    for (int i = 0; i < 10; i++) {
+        int x = is->readNext();
+        if(x < prev) {
+            cout << "Test Part3-2 failed " << x << " " << prev << "\n";
+        }
+        prev = x;
+    }
+    is->close();
+}
+
 
 
 int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 12; // v1.2
+        test_type = 13; // v1.2
         b = 4096;
-        n = 10;
-        r = 1;
+        n = 1000000;
+        r = 20;
     }
     else {
         test_type = atoi(argv[1]);
@@ -661,6 +687,9 @@ int main(int argc, char* argv[]) {
     }
     else if(test_type == 12) {
         testPart3();
+    }
+    else if(test_type == 13) {
+        testPart32(n,b,r);
     }
     //test1();
 
