@@ -9,6 +9,7 @@
 #include "Binary.h"
 #include "InputStreamB.h"
 #include "OutputStreamB.h"
+#include "Quicksort.h"
 
 
 Part3::Part3(int N, int M, int d, char* file) {
@@ -20,6 +21,7 @@ Part3::Part3(int N, int M, int d, char* file) {
     // Placer div antal filer på disken.
     vector<string> vs(div+1);
     int internalArray[M];
+    Quicksort* q = new Quicksort();
 
     int j = 0;
     int r = 0;
@@ -30,7 +32,7 @@ Part3::Part3(int N, int M, int d, char* file) {
         if(j == M) {
 
             // SORTER!
-
+            q->sort(internalArray,0,M-1);
 
             OutputStreamB* os = new OutputStreamB();
             ostringstream oss;
@@ -56,6 +58,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             // Eventuel rest
 
             // SORTER!
+            q->sort(internalArray,0,(N%M)-1);
 
             OutputStreamB* os = new OutputStreamB();
             ostringstream oss;

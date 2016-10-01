@@ -17,6 +17,8 @@
 #include "OutputStream.h"
 #include "Binary.h"
 #include "BinElement.h"
+#include "Quicksort.h"
+#include "Part3.h"
 
 void test1() {
     cout << "Page Size: " << getpagesize() << '\n';
@@ -491,13 +493,39 @@ void dwaymerging(int d, int n) {
 
 }
 
+void testQuick() {
+
+    int a[10];
+    a[0] = 2;
+    a[1] = 4;
+    a[2] = 5;
+    a[3] = 7;
+    a[4] = 8;
+    a[5] = 9;
+    a[6] = 1;
+    a[7] = 10;
+    a[8] = 6;
+    a[9] = 3;
+
+    Quicksort* q = new Quicksort();
+    q->sort(a,0,9);
+
+    for(int i = 0; i < 10; i++) {
+        cout << a[i] << "\n";
+    }
+}
+
+void testPart3() {
+    //Part3* p3 = new Part3();
+}
+
 
 
 int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 8; // v1.1
+        test_type = 11; // v1.2
         b = 4096;
         n = 10;
         r = 1;
@@ -591,8 +619,11 @@ int main(int argc, char* argv[]) {
     else if(test_type == 9) {
         testWrites(n);
     }
-    else if(test_type = 10) {
+    else if(test_type == 10) {
         testReads(n);
+    }
+    else if(test_type == 11) {
+        testQuick();
     }
     //test1();
 

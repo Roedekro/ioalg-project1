@@ -11,6 +11,7 @@
 
 class Part3 {
 
+public:
     Part3(int N, int M, int d, char* file);
     virtual ~Part3();
     void merge(int d, int n, std::vector<std::string> vs, char* out, int depth);
