@@ -15,6 +15,7 @@ using namespace std;
 OutputStreamC::OutputStreamC(int bufferSize) {
     index = 0;
     buffer = new int[bufferSize];
+    size = bufferSize;
 }
 
 OutputStreamC::~OutputStreamC() {
@@ -26,8 +27,8 @@ void OutputStreamC::create(char* s) {
 }
 
 void OutputStreamC::write(int* number) {
-    if (index >= sizeof(buffer) / sizeof(int)) {
-        int tmp = ::write(filedesc, buffer, sizeof(buffer));
+    if (index >= size) {
+        int tmp = ::write(filedesc, buffer, sizeof(int)*size);
         if(tmp == -1) cout << "Error writing to file in OutC\n";
         index = 0;
     }
@@ -37,8 +38,8 @@ void OutputStreamC::write(int* number) {
 }
 
 void OutputStreamC::close() {
-    if (index != 1) {
-        //::write(filedesc, buffer, index * sizeof(int));
+    if (index > 0) { // altid
+        ::write(filedesc, buffer, index * sizeof(int));
         //::write(filedesc, buffer, (index - 1) * sizeof(int));
         //::write(filedesc, buffer, sizeof(buffer));
     }

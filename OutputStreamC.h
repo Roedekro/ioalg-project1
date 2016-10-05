@@ -13,6 +13,7 @@ class OutputStreamC : OutputStream {
 public:
     int index;
     int * buffer;
+    int size;
     int filedesc;
     OutputStreamC(int bufferSize);
     virtual ~OutputStreamC();
