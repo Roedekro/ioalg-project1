@@ -16,6 +16,7 @@
 InputStreamC::InputStreamC(int bufferSize) {
     index = 2000000000;
     buffer = new int[bufferSize];
+    size = bufferSize;
 }
 
 InputStreamC::~InputStreamC() {
@@ -33,9 +34,8 @@ void InputStreamC::open(char* s) {
 
 int InputStreamC::readNext() {
 
-
-    if(index >= sizeof(buffer) / sizeof(int)) {
-        int bytesRead = ::read(filedesc, buffer, sizeof(buffer));
+    if(index >= size) {
+        int bytesRead = ::read(filedesc, buffer, size*sizeof(int));
         index = 0;
     }
     int elm = buffer[index];

@@ -17,6 +17,8 @@
 #include "OutputStream.h"
 #include "Binary.h"
 #include "BinElement.h"
+#include "Quicksort.h"
+#include "Part3.h"
 
 void test1() {
     cout << "Page Size: " << getpagesize() << '\n';
@@ -473,21 +475,109 @@ void dwaymerging(int d, int n) {
         }
     }
 
+    d = org_d;
+
     for(int i = 0; i < d; i++) {
         istreams[i]->close();
-        //delete(istreams[i]);
+        delete(istreams[i]);
     }
     //delete(istreams);
 
     for(int i = 0; i < org_d; i++) {
-       // delete(binArray[i+1]);
+       //delete(binArray[i+1]); Kan vi ikke da vi har tømt binarray
     }
     //delete(binArray);
-    //delete(binary);
+    delete(binary);
 
     os->close();
-    //delete(os);
+    delete(os);
 
+}
+
+void testQuick() {
+
+    int a[10];
+    a[0] = 2;
+    a[1] = 4;
+    a[2] = 5;
+    a[3] = 7;
+    a[4] = 8;
+    a[5] = 9;
+    a[6] = 1;
+    a[7] = 10;
+    a[8] = 6;
+    a[9] = 3;
+
+    Quicksort* q = new Quicksort();
+    q->sort(a,0,9);
+
+    for(int i = 0; i < 10; i++) {
+        cout << a[i] << "\n";
+    }
+}
+
+void testPart3() {
+    char test[] = "testPart3Input";
+    OutputStreamB* os = new OutputStreamB();
+    os->create(test);
+    int j = 2;
+    os->write(&j);
+    j= 4;
+    os->write(&j);
+    j= 5;
+    os->write(&j);
+    j= 7;
+    os->write(&j);
+    j= 8;
+    os->write(&j);
+    j= 9;
+    os->write(&j);
+    j= 1;
+    os->write(&j);
+    j= 10;
+    os->write(&j);
+    j= 6;
+    os->write(&j);
+    j= 3;
+    os->write(&j);
+
+    os->close();
+
+    Part3* p3 = new Part3(10,8,2,test);
+
+    char test2[] = "part3out";
+    InputStreamB* is = new InputStreamB();
+    is->open(test2);
+    for(int i = 0; i < 10; i++) {
+        cout << is->readNext() << "\n";
+    }
+    is->close();
+}
+
+void testPart32(int n, int m, int d) {
+    char test[] = "testPart3Input";
+    OutputStreamB *os = new OutputStreamB();
+    os->create(test);
+    for(int i = 0; i < n; i++) {
+        int x = rand() % 1000000;
+        os->write(&x);
+    }
+    os->close();
+
+    Part3 *p3 = new Part3(n, m, d, test);
+
+    char test2[] = "part3out";
+    InputStreamB *is = new InputStreamB();
+    is->open(test2);
+    int prev = 0;
+    for (int i = 0; i < 10; i++) {
+        int x = is->readNext();
+        if(x < prev) {
+            cout << "Test Part3-2 failed " << x << " " << prev << "\n";
+        }
+        prev = x;
+    }
+    is->close();
 }
 
 
@@ -496,10 +586,10 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 8; // v1.1
+        test_type = 2; // v1.2
         b = 4096;
-        n = 10;
-        r = 1;
+        n = 1000000;
+        r = 10;
     }
     else {
         test_type = atoi(argv[1]);
@@ -590,8 +680,17 @@ int main(int argc, char* argv[]) {
     else if(test_type == 9) {
         testWrites(n);
     }
-    else if(test_type = 10) {
+    else if(test_type == 10) {
         testReads(n);
+    }
+    else if(test_type == 11) {
+        testQuick();
+    }
+    else if(test_type == 12) {
+        testPart3();
+    }
+    else if(test_type == 13) {
+        testPart32(n,b,r);
     }
     //test1();
 

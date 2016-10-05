@@ -12,6 +12,7 @@ using namespace std;
 class InputStreamC : public InputStream {
 public:
     int filedesc;
+    int size;
     int * buffer;
     int index;
     InputStreamC(int bufferSize);
