@@ -275,7 +275,7 @@ void testWrites(int n) {
 
         cout << "Test B Completed\n"; */
         gettimeofday(&te1,NULL);
-        OutputStreamC* osC = new OutputStreamC(131072);
+        OutputStreamC* osC = new OutputStreamC(8192);
         char testC[] = "testWC";
         osC->create(testC);
         for(int j = 0; j < n; j++) {
@@ -348,7 +348,7 @@ void testReads(int n) {
         cout << "Test B Completed\n";
 */
         gettimeofday(&te1,NULL);
-        InputStreamC* isC = new InputStreamC(131072);
+        InputStreamC* isC = new InputStreamC(8192);
         char testC[] = "testWC";
         isC->open(testC);
         for(int j = 0; j < n; j++) {
