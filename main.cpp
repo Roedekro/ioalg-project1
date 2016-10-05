@@ -585,10 +585,10 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r;
     if(argc == 1) {
-        test_type = 13; // v1.2
+        test_type = 2; // v1.2
         b = 4096;
         n = 1000000;
-        r = 20;
+        r = 10;
     }
     else {
         test_type = atoi(argv[1]);
