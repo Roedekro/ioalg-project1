@@ -249,7 +249,7 @@ void testWrites(int n) {
     for(int i = 0; i < r; i++) {
         cout << "Run " << i+1 << '\n';
 
-        gettimeofday(&te1,NULL);
+        /*gettimeofday(&te1,NULL);
         OutputStreamA* osA = new OutputStreamA();
         char testA[] = "testWA";
         osA->create(testA);
@@ -259,7 +259,7 @@ void testWrites(int n) {
         osA->close();
         gettimeofday(&te2,NULL);
         time_testA = time_testA + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
-
+*/
         gettimeofday(&te1,NULL);
         OutputStreamB* osB = new OutputStreamB();
         char testB[] = "testWB";
@@ -271,7 +271,8 @@ void testWrites(int n) {
         gettimeofday(&te2,NULL);
         time_testB = time_testB + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
 
-        gettimeofday(&te1,NULL);
+        cout << "Test B Completed\n";
+        /*gettimeofday(&te1,NULL);
         OutputStreamC* osC = new OutputStreamC(131072);
         char testC[] = "testWC";
         osC->create(testC);
@@ -281,7 +282,7 @@ void testWrites(int n) {
         osC->close();
         gettimeofday(&te2,NULL);
         time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
-
+*/
         gettimeofday(&te1,NULL);
         OutputStreamD* osD = new OutputStreamD(32768, n);
         char testD[] = "testWD";
@@ -319,7 +320,7 @@ void testReads(int n) {
     for(int i = 0; i < r; i++) {
         cout << "Run " << i+1 << '\n';
 
-        gettimeofday(&te1,NULL);
+        /*gettimeofday(&te1,NULL);
         InputStreamA* isA = new InputStreamA();
         char testA[] = "testWA";
         isA->open(testA);
@@ -330,7 +331,7 @@ void testReads(int n) {
         gettimeofday(&te2,NULL);
         time_testA = time_testA + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
         cout << "Test A Completed\n";
-
+*/
         gettimeofday(&te1,NULL);
         InputStreamB* isB = new InputStreamB();
         char testB[] = "testWB";
@@ -343,7 +344,7 @@ void testReads(int n) {
         time_testB = time_testB + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
         cout << "Test B Completed\n";
 
-        gettimeofday(&te1,NULL);
+        /*gettimeofday(&te1,NULL);
         InputStreamC* isC = new InputStreamC(131072);
         char testC[] = "testWC";
         isC->open(testC);
@@ -354,7 +355,7 @@ void testReads(int n) {
         gettimeofday(&te2,NULL);
         time_testC = time_testC + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
         cout << "Test C Completed\n";
-
+*/
         gettimeofday(&te1,NULL);
         InputStreamD* isD = new InputStreamD(32768,n);
         char testD[] = "testWD";
