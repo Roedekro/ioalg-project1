@@ -571,6 +571,7 @@ void testPart32(int n, int m, int d, int r) {
     long time_merge = 0;
 
     for(int i = 0; i < r; i++) {
+        cout << "Merge Run " << r << "\n";
         gettimeofday(&te1,NULL);
         Part3 *p3 = new Part3(n, m, d, test);
         gettimeofday(&te2,NULL);
