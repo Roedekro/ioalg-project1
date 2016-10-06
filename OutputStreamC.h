@@ -9,16 +9,16 @@
 
 using namespace std;
 
-class OutputStreamC : OutputStream {
+class OutputStreamC {
 public:
     int index;
     int * buffer;
     int size;
     int filedesc;
-    char * name;
+    const char * name;
     OutputStreamC(int bufferSize);
     virtual ~OutputStreamC();
-    void create(char* s);
+    void create(const char* s);
     void write(int* number);
     void close();
 };

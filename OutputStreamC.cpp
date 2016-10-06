@@ -23,7 +23,7 @@ OutputStreamC::~OutputStreamC() {
     // TODO Auto-generated destructor stub
 }
 
-void OutputStreamC::create(char* s) {
+void OutputStreamC::create(const char* s) {
     filedesc = ::open(s, O_CREAT|O_RDWR);
     name = s;
 }

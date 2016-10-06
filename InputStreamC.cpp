@@ -23,7 +23,7 @@ InputStreamC::~InputStreamC() {
     // TODO Auto-generated destructor stub
 }
 
-void InputStreamC::open(char* s) {
+void InputStreamC::open(const char* s) {
     filedesc = ::open(s, O_RDONLY);
     //filedesc = ::open(s, O_RDWR);
     if(filedesc == -1) {

@@ -40,8 +40,12 @@ Part3::Part3(int N, int M, int d, char* file) {
             ostringstream oss;
             oss << r;
             string s = "part3" + oss.str();
-            char test[s.size()];
-            strncpy(test, s.c_str(), s.size());
+            cout << s << "n\n";
+            cout << s.c_str() << "n\n";
+            //char test[s.size()];
+            //strncpy(test, s.c_str(), s.size()+1);
+            //char* test = strdup(s.c_str());
+            const char* test = s.c_str();
             vs[r] = test;
             os->create(test);
 
@@ -51,6 +55,7 @@ Part3::Part3(int N, int M, int d, char* file) {
                 //cout << "Writing: " << temp << "\n";
             }
 
+            cout << test << "n\n";
             os->close();
             r++;
             j=0;
@@ -68,8 +73,9 @@ Part3::Part3(int N, int M, int d, char* file) {
             ostringstream oss;
             oss << r;
             string s = "part3" + oss.str();
-            char test[s.size()];
-            strncpy(test, s.c_str(), s.size());
+            //char test[s.size()];
+            //strncpy(test, s.c_str(), s.size());
+            const char* test = s.c_str();
             vs[r] = test;
             os->create(test);
 
@@ -185,8 +191,9 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
     for(int i = 0; i < d; i++) {
         istreams[i] = new InputStreamC(8192);
         string s = vs[i];
-        char test[s.size()];
-        strncpy(test, s.c_str(), s.size());
+        //char test[s.size()];
+        //strncpy(test, s.c_str(), s.size());
+        const char* test = s.c_str();
         istreams[i]->open(test);
     }
 

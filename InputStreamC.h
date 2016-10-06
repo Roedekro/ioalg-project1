@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class InputStreamC : public InputStream {
+class InputStreamC {
 public:
     int filedesc;
     int size;
@@ -18,7 +18,7 @@ public:
     int endoffileIndex;
     InputStreamC(int bufferSize);
     virtual ~InputStreamC();
-    void open(char* s);
+    void open(const char* s);
     int readNext();
     bool endOfStream();
     void close();
