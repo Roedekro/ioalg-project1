@@ -558,7 +558,7 @@ void testPart3() {
 
 void testPart32(int n, int m, int d, int r) {
     char test[] = "testPart3Input";
-    OutputStreamB *os = new OutputStreamB();
+    OutputStreamC *os = new OutputStreamC(8192);
     os->create(test);
     for(int i = 0; i < n; i++) {
         int x = rand() % 1000000;
