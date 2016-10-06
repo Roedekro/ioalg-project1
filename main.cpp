@@ -27,7 +27,7 @@ void test1() {
 
     int bufferSize = 2;
 
-    OutputStreamD * os = new OutputStreamD(16,14);
+    OutputStreamC * os = new OutputStreamC(4);
     os->create(file);
     int number = 42;
     os->write(&number);
@@ -37,15 +37,15 @@ void test1() {
     os->write(&number3);
     int number4 = 3030303;
     os->write(&number4);
-    for(int i = 0; i < 10; i++) {
+    /*for(int i = 0; i < 10; i++) {
         os->write(&i);
-    }
+    }*/
     os->close();
 
     cout << "OutStream Success\n";
 
 
-    InputStreamD * is = new InputStreamD(16,14);
+    InputStreamC * is = new InputStreamC(3);
     is->open(file);
 
     //int test = is->readNext();
@@ -61,9 +61,9 @@ void test1() {
     cout << "readNext: " << is->readNext() << '\n';
     cout << "endOfStream: " << is->endOfStream() << '\n';
 
-    for(int i = 0; i < 10; i++) {
+    /*for(int i = 0; i < 10; i++) {
         cout << is->readNext() << '\n';
-    }
+    }*/
 
     is->close();
 }
@@ -556,7 +556,7 @@ void testPart3() {
     is->close();
 }
 
-void testPart32(int n, int m, int d) {
+void testPart32(int n, int m, int d, int r) {
     char test[] = "testPart3Input";
     OutputStreamB *os = new OutputStreamB();
     os->create(test);
@@ -566,8 +566,21 @@ void testPart32(int n, int m, int d) {
     }
     os->close();
 
-    Part3 *p3 = new Part3(n, m, d, test);
+    struct timeval te1;
+    struct timeval te2;
+    long time_merge = 0;
 
+    for(int i = 0; i < r; i++) {
+        gettimeofday(&te1,NULL);
+        Part3 *p3 = new Part3(n, m, d, test);
+        gettimeofday(&te2,NULL);
+        time_merge = time_merge + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+    }
+
+    if(time_merge != 0) time_merge = time_merge / r;
+    cout << "Merge time for n = " << n << ", M = " << m << ", d = " << d << " was " << time_merge << " milliseconds averaged over " << r << " runs\n";
+    cout << time_merge;
+    /*
     char test2[] = "part3out";
     InputStreamB *is = new InputStreamB();
     is->open(test2);
@@ -580,27 +593,33 @@ void testPart32(int n, int m, int d) {
         prev = x;
     }
     is->close();
+     */
 }
 
 
 
 int main(int argc, char* argv[]) {
 
-    int test_type, b, n ,r;
+    int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 2; // v1.2
-        b = 4096;
-        n = 1000000;
+        test_type = 13; // v1.2
+        b = 100;
+        n = 100000;
         r = 10;
+        d = 10;
     }
     else {
         test_type = atoi(argv[1]);
         b = atoi(argv[2]);
         n = atoi(argv[3]);
         r = atoi(argv[4]);
+        d = 20;
+    }
+    if(argc == 6) {
+        d = atoi(argv[5]);
     }
 
-    cout << "Running test type " << test_type << " with B = " << b << " and N = " << n << " for " << r << " runs\n";
+    cout << "Running test type " << test_type << " with B/M = " << b << " and N = " << n << " for " << r << " runs with " << d << " streams\n";
 
     if(test_type == 1) {
         testAll(b, n, r);
@@ -692,7 +711,10 @@ int main(int argc, char* argv[]) {
         testPart3();
     }
     else if(test_type == 13) {
-        testPart32(n,b,r);
+        testPart32(n,b,d, r);
+    }
+    else if(test_type == 14) {
+        test1();
     }
     //test1();
 

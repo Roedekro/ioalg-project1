@@ -36,6 +36,7 @@ int InputStreamC::readNext() {
 
     if(index >= size) {
         int bytesRead = ::read(filedesc, buffer, size*sizeof(int));
+        endoffileIndex = bytesRead / sizeof(int);
         index = 0;
     }
     int elm = buffer[index];
@@ -54,13 +55,23 @@ int InputStreamC::readNext() {
 }
 
 bool InputStreamC::endOfStream() {
-    if (index > 0) return false;
-    bool b = false;
-    int val;
-    int bytesRead = ::read(filedesc, &val, sizeof(int));
-    if (bytesRead == 0) b = true;
-    lseek(filedesc, -bytesRead, SEEK_CUR);
-    return b;
+    if (index == size) { // Se næste blok
+        bool b;
+        int val;
+        int bytesRead = ::read(filedesc, &val, sizeof(int));
+        if (bytesRead == 0) b = true;
+        lseek(filedesc, -bytesRead, SEEK_CUR);
+        return b;
+    }
+    else { // Nuværende blok
+        if(endoffileIndex == size)     {
+            return false;
+        }
+        else if(index < endoffileIndex) { // Er allerede +1
+            return false;
+        }
+        else return true;
+    }
 }
 
 void InputStreamC::close() {

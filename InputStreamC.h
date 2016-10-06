@@ -15,6 +15,7 @@ public:
     int size;
     int * buffer;
     int index;
+    int endoffileIndex;
     InputStreamC(int bufferSize);
     virtual ~InputStreamC();
     void open(char* s);

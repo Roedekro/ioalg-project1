@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <initializer_list>
 #include <iostream>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -24,12 +25,15 @@ OutputStreamC::~OutputStreamC() {
 
 void OutputStreamC::create(char* s) {
     filedesc = ::open(s, O_CREAT|O_RDWR);
+    name = s;
 }
 
 void OutputStreamC::write(int* number) {
     if (index >= size) {
         int tmp = ::write(filedesc, buffer, sizeof(int)*size);
-        if(tmp == -1) cout << "Error writing to file in OutC\n";
+        if(tmp == -1) {
+            cout << "Error writing to file in OutC " << name << "\n";
+        }
         index = 0;
     }
 
@@ -38,14 +42,13 @@ void OutputStreamC::write(int* number) {
 }
 
 void OutputStreamC::close() {
-    if (index > 0) { // altid
+    if (index > 0) {
         ::write(filedesc, buffer, index * sizeof(int));
-        //::write(filedesc, buffer, (index - 1) * sizeof(int));
-        //::write(filedesc, buffer, sizeof(buffer));
     }
 
     int tmp = ::close(filedesc);
     if(tmp == -1) cout << "Error closing file in OutC\n";
     delete(buffer);
+    chmod(name, 0666);
     index = 0;
 }

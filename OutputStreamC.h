@@ -15,6 +15,7 @@ public:
     int * buffer;
     int size;
     int filedesc;
+    char * name;
     OutputStreamC(int bufferSize);
     virtual ~OutputStreamC();
     void create(char* s);

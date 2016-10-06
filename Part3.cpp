@@ -8,15 +8,16 @@
 #include "Part3.h"
 #include "BinElement.h"
 #include "Binary.h"
-#include "InputStreamB.h"
-#include "OutputStreamB.h"
+#include "InputStreamC.h"
+#include "InputStreamC.h"
+#include "OutputStreamC.h"
 #include "Quicksort.h"
 
 
 Part3::Part3(int N, int M, int d, char* file) {
 
     int div = N/M;
-    InputStreamB* is = new InputStreamB();
+    InputStreamC* is = new InputStreamC(8192);
     is->open(file);
 
     // Placer div antal filer på disken.
@@ -35,7 +36,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             // SORTER!
             q->sort(internalArray,0,M-1);
 
-            OutputStreamB* os = new OutputStreamB();
+            OutputStreamC* os = new OutputStreamC(8192);
             ostringstream oss;
             oss << r;
             string s = "part3" + oss.str();
@@ -63,7 +64,7 @@ Part3::Part3(int N, int M, int d, char* file) {
             // SORTER!
             q->sort(internalArray,0,(N%M)-1);
 
-            OutputStreamB* os = new OutputStreamB();
+            OutputStreamC* os = new OutputStreamC(8192);
             ostringstream oss;
             oss << r;
             string s = "part3" + oss.str();
@@ -125,7 +126,7 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
     if(n > d) {
         int r = 0;
         int j = 0;
-        vector<string> vs2(d+1); // Til at sende strings videre med
+        vector<string> vs2(n/d); // Til at sende strings videre med
         vector<string> vs3(d+1); // De strings vi får tilbage
         // Divide
         for(int i = 0; i < n; i++) {
@@ -155,7 +156,7 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
                 char test[s.size()];
                 strncpy(test, s.c_str(), s.size());
                 vs3[r] = test;
-                merge(d, n%(n/d), vs2, test, depth+1);
+                merge(d, n%d, vs2, test, depth+1);
                 r++;
             }
         }
@@ -180,9 +181,9 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
 
 
     //char test[] = "test2";
-    InputStreamB* istreams[d];
+    InputStreamC* istreams[d];
     for(int i = 0; i < d; i++) {
-        istreams[i] = new InputStreamB();
+        istreams[i] = new InputStreamC(8192);
         string s = vs[i];
         char test[s.size()];
         strncpy(test, s.c_str(), s.size());
@@ -200,9 +201,11 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
 
     binary->setheap(binArray, d);
 
-    OutputStreamB* os = new OutputStreamB();
+    OutputStreamC* os = new OutputStreamC(8192);
     os->create(out);
 
+
+    int count = d;
     bool running = true;
 
     while(running) {
@@ -220,6 +223,7 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
                 binOut->value = istreams[binOut->id]->readNext();
                 //cout << "Inserting = " << binOut->value << "\n";
                 binary->inheap(binArray, d-1, binOut);
+                count++;
             }
             else {
                 d--;
@@ -244,4 +248,5 @@ void Part3::dwaymerging(int d, vector<string> vs, char* out) {
     os->close();
     delete(os);
 
+    //cout << "Count was " << count << "\n";
 }
