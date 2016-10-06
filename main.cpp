@@ -579,7 +579,7 @@ void testPart32(int n, int m, int d, int r) {
 
     if(time_merge != 0) time_merge = time_merge / r;
     cout << "Merge time for n = " << n << ", M = " << m << ", d = " << d << " was " << time_merge << " milliseconds averaged over " << r << " runs\n";
-    cout << time_merge;
+    cout << time_merge << "\n";
     /*
     char test2[] = "part3out";
     InputStreamB *is = new InputStreamB();

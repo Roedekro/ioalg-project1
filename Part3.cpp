@@ -14,7 +14,7 @@
 #include "Quicksort.h"
 
 
-Part3::Part3(int N, int M, int d, char* file) {
+Part3::Part3(int N, int M, int d, const char* file) {
 
     int div = N/M;
     InputStreamC* is = new InputStreamC(8192);
@@ -128,7 +128,7 @@ Part3::~Part3() {
     // TODO Auto-generated destructor stub
 }
 
-void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
+void Part3::merge(int d, int n, vector<string> vs, const char* out, int depth) {
     if(n > d) {
         int r = 0;
         int j = 0;
@@ -145,8 +145,9 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
                 oss2 << depth;
                 string s = "p" + oss2.str() + "part" + oss.str();
                 //cout << s << "\n";
-                char test[s.size()];
-                strncpy(test, s.c_str(), s.size());
+                //char test[s.size()];
+                //strncpy(test, s.c_str(), s.size());
+                const char* test = s.c_str();
                 vs3[r] = test;
                 merge(d, n/d, vs2, test, depth+1);
                 r++;
@@ -159,8 +160,9 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
                 ostringstream oss2;
                 oss2 << depth;
                 string s = "p" + oss2.str() + "part" + oss.str();
-                char test[s.size()];
-                strncpy(test, s.c_str(), s.size());
+                //char test[s.size()];
+                //strncpy(test, s.c_str(), s.size());
+                const char* test = s.c_str();
                 vs3[r] = test;
                 merge(d, n%d, vs2, test, depth+1);
                 r++;
@@ -179,7 +181,7 @@ void Part3::merge(int d, int n, vector<string> vs, char* out, int depth) {
 }
 
 
-void Part3::dwaymerging(int d, vector<string> vs, char* out) {
+void Part3::dwaymerging(int d, vector<string> vs, const char* out) {
 
     //cout << "Dway merging " << d << " in " << out << "\n";
 
