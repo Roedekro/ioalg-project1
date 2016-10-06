@@ -40,8 +40,8 @@ Part3::Part3(int N, int M, int d, const char* file) {
             ostringstream oss;
             oss << r;
             string s = "part3" + oss.str();
-            cout << s << "n\n";
-            cout << s.c_str() << "n\n";
+            //cout << s << "n\n";
+            //cout << s.c_str() << "n\n";
             //char test[s.size()];
             //strncpy(test, s.c_str(), s.size()+1);
             //char* test = strdup(s.c_str());
@@ -55,7 +55,7 @@ Part3::Part3(int N, int M, int d, const char* file) {
                 //cout << "Writing: " << temp << "\n";
             }
 
-            cout << test << "n\n";
+            //cout << test << "n\n";
             os->close();
             r++;
             j=0;
