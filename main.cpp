@@ -597,13 +597,71 @@ void testPart32(int n, int m, int d, int r) {
      */
 }
 
+void testQuickFinal(int n, int r) {
+
+
+
+    struct timeval te1;
+    struct timeval te2;
+    unsigned long time_quick = 0;
+
+    for(int i = 0; i < r; i++) {
+        int internal[n];
+        for(int j = 0; j < n; j++) {
+            int x = rand() % 1000000;
+            internal[j] = x;
+        }
+        gettimeofday(&te1,NULL);
+        Quicksort* q = new Quicksort();
+        q->sort(internal,0,n-1);
+        gettimeofday(&te2,NULL);
+        time_quick = time_quick + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Quicksort Finished Run " << i << " With Total " << time_quick << "\n";
+        //delete(internal);
+    }
+
+    if(time_quick != 0) time_quick = time_quick / r;
+    cout << "Quicksort Finished " << r << " Runs With Average Time " << time_quick << "\n";
+}
+
+void testHeapFinal(int n, int r) {
+
+
+    struct timeval te1;
+    struct timeval te2;
+    unsigned long time_quick = 0;
+
+    for(int i = 0; i < r; i++) {
+        BinElement* internal[n+2];
+        for(int j = 1; j < n+1; j++) {
+            int x = rand() % 1000000;
+            internal[j] = new BinElement(j,x);
+        }
+        gettimeofday(&te1,NULL);
+        Binary* b = new Binary();
+        b->setheap(internal,n);
+        for(int j = 1; j < n+1; j++) {
+            b->outheap(internal,n-j+1);
+        }
+        gettimeofday(&te2,NULL);
+        time_quick = time_quick + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Quicksort Finished Run " << i << " With Total " << time_quick << "\n";
+        /*for(int j = 1; j < n+1; j++) {
+            delete(internal[j]);
+        }*/
+    }
+
+    if(time_quick != 0) time_quick = time_quick / r;
+    cout << "Quicksort Finished " << r << " Runs With Average Time " << time_quick << "\n";
+}
+
 
 
 int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 13; // v1.2
+        test_type = 15; // v1.2
         b = 100;
         n = 10000;
         r = 10;
@@ -715,9 +773,12 @@ int main(int argc, char* argv[]) {
         testPart32(n,b,d, r);
     }
     else if(test_type == 14) {
-        test1();
+        testQuickFinal(n,r);
     }
-    //test1();
+    else if(test_type == 15) {
+        testHeapFinal(n,r);
+    }
+
 
     return 0;
 }
