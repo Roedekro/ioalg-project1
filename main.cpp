@@ -568,14 +568,14 @@ void testPart32(int n, int m, int d, int r) {
 
     struct timeval te1;
     struct timeval te2;
-    long time_merge = 0;
+    unsigned long time_merge = 0;
 
     for(int i = 0; i < r; i++) {
-        cout << "Merge Run " << r << "\n";
         gettimeofday(&te1,NULL);
         Part3 *p3 = new Part3(n, m, d, test);
         gettimeofday(&te2,NULL);
         time_merge = time_merge + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
+        cout << "Merge Finished Run " << i << " With Total " << time_merge << "\n";
     }
 
     if(time_merge != 0) time_merge = time_merge / r;
@@ -605,7 +605,7 @@ int main(int argc, char* argv[]) {
     if(argc == 1) {
         test_type = 13; // v1.2
         b = 100;
-        n = 100000;
+        n = 10000;
         r = 10;
         d = 10;
     }
