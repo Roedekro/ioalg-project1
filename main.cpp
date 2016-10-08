@@ -650,7 +650,7 @@ void testHeapFinal(int n, int r) {
         /*for(int j = 1; j < n+1; j++) {
             delete(internal[j]);
         }*/
-        delete(internal);
+        //delete(internal);
     }
 
     if(time_quick != 0) time_quick = time_quick / r;
@@ -663,8 +663,8 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 14; // v1.2
-        b = 100;
+        test_type = 13; // v1.2
+        b = 2000000;
         n = 10000000;
         r = 10;
         d = 10;
