@@ -78,7 +78,7 @@ int Quicksort::partition(int *array, int p, int r, int x) {
 
 int Quicksort::medianOfMedians(int *array, int p, int r) {
     if(r-p > 5) {
-        int a[(r-p)/5];
+        int* a = new int[(r-p)/5];
         for(int i = 0; i < (r-p)/5; i++) {
             a[i] = insertionsort(array,p+i*5,p+i*5+4);
         }

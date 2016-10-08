@@ -22,7 +22,7 @@ Part3::Part3(int N, int M, int d, const char* file) {
 
     // Placer div antal filer på disken.
     vector<string> vs(div+1);
-    int internalArray[M];
+    int* internalArray = new int[M];
     Quicksort* q = new Quicksort();
 
     int j = 0;

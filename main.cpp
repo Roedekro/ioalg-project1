@@ -604,9 +604,10 @@ void testQuickFinal(int n, int r) {
     struct timeval te1;
     struct timeval te2;
     unsigned long time_quick = 0;
+    //srand(time(NULL));
 
     for(int i = 0; i < r; i++) {
-        int internal[n];
+        int* internal = new int[n];
         for(int j = 0; j < n; j++) {
             int x = rand() % 1000000;
             internal[j] = x;
@@ -661,9 +662,9 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 15; // v1.2
+        test_type = 14; // v1.2
         b = 100;
-        n = 10000;
+        n = 10000000;
         r = 10;
         d = 10;
     }
