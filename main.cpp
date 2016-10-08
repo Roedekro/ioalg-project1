@@ -633,7 +633,7 @@ void testHeapFinal(int n, int r) {
     unsigned long time_quick = 0;
 
     for(int i = 0; i < r; i++) {
-        BinElement* internal[n+2];
+        BinElement** internal = new BinElement*[n+2];
         for(int j = 1; j < n+1; j++) {
             int x = rand() % 1000000;
             internal[j] = new BinElement(j,x);
@@ -650,7 +650,7 @@ void testHeapFinal(int n, int r) {
         /*for(int j = 1; j < n+1; j++) {
             delete(internal[j]);
         }*/
-        //delete(internal);
+        delete(internal);
     }
 
     if(time_quick != 0) time_quick = time_quick / r;
@@ -663,9 +663,9 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 14; // v1.2
+        test_type = 15; // v1.2
         b = 2000000;
-        n = 100000000;
+        n = 10000000;
         r = 10;
         d = 10;
     }
