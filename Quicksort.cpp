@@ -82,7 +82,10 @@ int Quicksort::medianOfMedians(int *array, int p, int r) {
         for(int i = 0; i < (r-p)/5; i++) {
             a[i] = insertionsort(array,p+i*5,p+i*5+4);
         }
-        return medianOfMedians(a,0,(r-p)/5);
+        int ret = medianOfMedians(a,0,(r-p)/5);
+        delete(a);
+        return ret;
+        //return medianOfMedians(a,0,(r-p)/5);
     }
     else { // Insertion sort
         return insertionsort(array, p, r);
@@ -106,6 +109,5 @@ int Quicksort::insertionsort(int *array, int p, int r) {
             }
         }
     }
-
     return array[p+((r-p)/2)];
 }

@@ -663,9 +663,9 @@ int main(int argc, char* argv[]) {
 
     int test_type, b, n ,r,d;
     if(argc == 1) {
-        test_type = 13; // v1.2
+        test_type = 14; // v1.2
         b = 2000000;
-        n = 10000000;
+        n = 100000000;
         r = 10;
         d = 10;
     }
