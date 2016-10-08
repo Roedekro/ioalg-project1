@@ -618,7 +618,7 @@ void testQuickFinal(int n, int r) {
         gettimeofday(&te2,NULL);
         time_quick = time_quick + (te2.tv_sec - te1.tv_sec) * 1000 + (te2.tv_usec - te1.tv_usec) / 1000;
         cout << "Quicksort Finished Run " << i << " With Total " << time_quick << "\n";
-        //delete(internal);
+        delete(internal);
     }
 
     if(time_quick != 0) time_quick = time_quick / r;
@@ -650,6 +650,7 @@ void testHeapFinal(int n, int r) {
         /*for(int j = 1; j < n+1; j++) {
             delete(internal[j]);
         }*/
+        delete(internal);
     }
 
     if(time_quick != 0) time_quick = time_quick / r;
